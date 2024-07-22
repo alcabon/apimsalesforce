@@ -277,8 +277,8 @@ Explications :
 - Le client_id n'est pas nécessaire car il est déjà inclus dans le JWT en tant que claim "iss" (issuer).
 - Le client_secret n'est pas requis car la signature du JWT avec la clé privée remplace la nécessité d'un secret client distinct.
 - Cette approche est plus sécurisée car :
-- Le client_id est déjà encodé dans le JWT.
-- La signature du JWT avec la clé privée prouve l'authenticité de la demande, rendant le client_secret redondant.
+  - Le client_id est déjà encodé dans le JWT.
+  - La signature du JWT avec la clé privée prouve l'authenticité de la demande, rendant le client_secret redondant.
 - En utilisant cette méthode, vous réduisez la quantité d'informations sensibles transmises lors de chaque échange de token, ce qui améliore la sécurité globale de votre intégration avec Salesforce.
 
 
