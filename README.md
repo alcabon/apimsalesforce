@@ -8,16 +8,16 @@ Voici un guide détaillé basé sur les informations disponibles et les meilleur
 
 * **Étape 1 : Créer une Application Connectée dans Salesforce**
 
-- Créer une Application Connectée :
-- Connectez-vous à Salesforce en tant qu'administrateur.
-- Allez dans Setup > App Manager > New Connected App.
-- Remplissez les champs requis, y compris le nom de l'application et l'URL de rappel (par exemple, https://yourdomain.com/callback).
-- Configurer les Paramètres OAuth :
-  - Dans la section API (Enable OAuth Settings), cochez Enable OAuth Settings.
-  - Ajoutez les OAuth Scopes nécessaires (par exemple, full, api).
-  - Cochez Use digital signatures et téléchargez le certificat public correspondant à la clé privée que vous utiliserez pour signer le JWT.
-  - Enregistrer l'Application :
-  - Enregistrez l'application et notez le Consumer Key et le Consumer Secret.
+  - Créer une Application Connectée :
+  - Connectez-vous à Salesforce en tant qu'administrateur.
+  - Allez dans Setup > App Manager > New Connected App.
+  - Remplissez les champs requis, y compris le nom de l'application et l'URL de rappel (par exemple, https://yourdomain.com/callback).
+  - Configurer les Paramètres OAuth :
+    - Dans la section API (Enable OAuth Settings), cochez Enable OAuth Settings.
+    - Ajoutez les OAuth Scopes nécessaires (par exemple, full, api).
+    - Cochez Use digital signatures et téléchargez le certificat public correspondant à la clé privée que vous utiliserez pour signer le JWT.
+    - Enregistrer l'Application :
+    - Enregistrez l'application et notez le Consumer Key et le Consumer Secret.
 
 * **Étape 2 : Générer un JWT Signé pour Salesforce**
 
