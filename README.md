@@ -281,7 +281,9 @@ Explications :
 
 
 
-**L'URL de callback** correspond à l'application appelante dans le contexte de l'authentification OAuth avec Salesforce. Voici les points clés à retenir :
+**L'URL de callback** correspond à l'application appelante dans le contexte de l'authentification OAuth avec Salesforce. 
+
+Voici les points clés à retenir :
   - L'URL de callback est un point de terminaison dans votre application appelante (celle qui demande l'accès à Salesforce) .
   - Salesforce utilise cette URL pour rediriger l'utilisateur après l'autorisation OAuth .
   - Elle est également appelée "URL de rappel" ou "endpoint" que Salesforce utilise pour communiquer avec votre application pendant le processus OAuth .
