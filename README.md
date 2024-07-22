@@ -59,6 +59,9 @@ Voici un guide détaillé basé sur les informations disponibles et les meilleur
 * **Échanger le JWT contre un Token d'Accès Salesforce :**
 Ajoutez une politique pour échanger le JWT contre un token d'accès Salesforce :
 
+> [!CAUTION]
+> ce code XML est erroné et corrigé plus bas.
+
 ```xml
 <send-request mode="new" response-variable-name="access-token">
   <set-url>https://login.salesforce.com/services/oauth2/token</set-url>
