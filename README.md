@@ -36,7 +36,7 @@ Voici un guide détaillé basé sur les informations disponibles et les meilleur
   - Allez dans APIs et ajoutez une nouvelle API ou sélectionnez une API existante.
   - Ajouter une Politique pour Générer le JWT :
   - 
-## Ajoutez une politique pour générer le JWT spécifique à Salesforce :
+* **Ajoutez une politique pour générer le JWT spécifique à Salesforce :**
 
 ```xml
 <send-request mode="new" response-variable-name="jwt-token">
@@ -69,7 +69,7 @@ Ajoutez une politique pour échanger le JWT contre un token d'accès Salesforce 
     client_id=your-client-id&client_secret=your-client-secret&grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=@(context.Variables["jwt-token"].Value)
   </set-body>
 </send-request>
-``
+```
 
 **Utiliser le Token d'Accès pour Appeler l'API Salesforce :**
 Ajoutez une politique pour utiliser le token d'accès dans les appels API :
