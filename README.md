@@ -238,3 +238,37 @@ Utilisez le JWT généré pour obtenir un token d'accès Salesforce :
 ```
 
 Cette approche permet de générer de manière sécurisée un JWT pour Salesforce en utilisant une fonction Azure, puis d'utiliser ce JWT pour obtenir un token d'accès Salesforce via APIM.
+
+
+**prompt: Échanger le JWT contre un Token d'Accès Salesforce , il n'est pas nécessaire de fournir client id et client secret en plus de l'assertion**
+
+Vous avez raison, et je vous remercie de soulever ce point important. En effet, lors de l'échange du JWT contre un Token d'Accès Salesforce en utilisant le flux JWT Bearer, il n'est pas nécessaire de fournir le client_id et le client_secret en plus de l'assertion. Voici la correction et les explications :
+Pour échanger le JWT contre un Token d'Accès Salesforce, vous devez uniquement fournir :
+  - Le grant_type
+  - L'assertion (qui est le JWT signé)
+    
+Voici la politique APIM corrigée pour échanger le JWT contre un Token d'Accès Salesforce :
+
+```xml
+<send-request mode="new" response-variable-name="salesforce-token" timeout="20" ignore-error="true">
+    <set-url>https://login.salesforce.com/services/oauth2/token</set-url>
+    <set-method>POST</set-method>
+    <set-header name="Content-Type" exists-action="override">
+        <value>application/x-www-form-urlencoded</value>
+    </set-header>
+    <set-body>@{
+        return $"grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion={context.Variables["jwt-token"]}";
+    }</set-body>
+</send-request>
+```
+
+Explications :
+
+- grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer : Ceci indique à Salesforce que nous utilisons le flux JWT Bearer.
+- assertion={context.Variables["jwt-token"]} : C'est le JWT signé que nous avons généré précédemment.
+- Le client_id n'est pas nécessaire car il est déjà inclus dans le JWT en tant que claim "iss" (issuer).
+- Le client_secret n'est pas requis car la signature du JWT avec la clé privée remplace la nécessité d'un secret client distinct.
+- Cette approche est plus sécurisée car :
+- Le client_id est déjà encodé dans le JWT.
+- La signature du JWT avec la clé privée prouve l'authenticité de la demande, rendant le client_secret redondant.
+- En utilisant cette méthode, vous réduisez la quantité d'informations sensibles transmises lors de chaque échange de token, ce qui améliore la sécurité globale de votre intégration avec Salesforce.
