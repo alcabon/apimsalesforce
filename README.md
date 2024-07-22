@@ -245,6 +245,9 @@ Cette approche permet de générer de manière sécurisée un JWT pour Salesforc
 
 **prompt: Échanger le JWT contre un Token d'Accès Salesforce , il n'est pas nécessaire de fournir client id et client secret en plus de l'assertion**
 
+> [!TIP]
+> il s'agit de la correction de la politique APIM erronée plus haut.
+
 Vous avez raison, et je vous remercie de soulever ce point important. En effet, lors de l'échange du JWT contre un Token d'Accès Salesforce en utilisant le flux JWT Bearer, il n'est pas nécessaire de fournir le client_id et le client_secret en plus de l'assertion. Voici la correction et les explications :
 Pour échanger le JWT contre un Token d'Accès Salesforce, vous devez uniquement fournir :
   - Le grant_type
