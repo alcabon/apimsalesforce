@@ -129,7 +129,9 @@ En résumé, https://yourdomain.com/generate-jwt est un espace réservé dans l'
 
 **prompt: créer la fonction azure qui peut créer un token jwt avec n'importe quel language**
 
-Pour créer une fonction Azure qui génère un token JWT pour Salesforce, vous pouvez utiliser différents langages de programmation. Voici un exemple de mise en œuvre en utilisant C# avec .NET, qui est largement utilisé pour les fonctions Azure :
+Pour créer une fonction Azure qui génère un token JWT pour Salesforce, vous pouvez utiliser différents langages de programmation. 
+
+Voici un exemple de mise en œuvre en utilisant C# avec .NET, qui est largement utilisé pour les fonctions Azure :
 - Créez une nouvelle fonction Azure dans le portail Azure ou via Visual Studio.
 - Choisissez le modèle de déclencheur HTTP.
 - Installez les packages NuGet suivants :
