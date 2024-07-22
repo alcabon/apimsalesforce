@@ -122,8 +122,8 @@ Pour créer une fonction Azure qui génère un token JWT pour Salesforce, vous p
 - Créez une nouvelle fonction Azure dans le portail Azure ou via Visual Studio.
 - Choisissez le modèle de déclencheur HTTP.
 - Installez les packages NuGet suivants :
-- System.IdentityModel.Tokens.Jwt
-- Microsoft.IdentityModel.Tokens
+  - System.IdentityModel.Tokens.Jwt
+  - Microsoft.IdentityModel.Tokens
 
 Voici un exemple de code pour la fonction :
 
