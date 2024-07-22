@@ -1,6 +1,6 @@
 # apimsalesforce
 
-**comment apim configure le jwt spécifique à salesforce ?**
+**prompt: comment apim configure le jwt spécifique à salesforce ?**
 
 Pour configurer Azure API Management (APIM) afin de générer et utiliser un JWT spécifique pour accéder aux API Apex REST de Salesforce, vous devez suivre plusieurs étapes clés. 
 Voici un guide détaillé basé sur les informations disponibles et les meilleures pratiques.
@@ -123,7 +123,7 @@ Voici quelques points importants à considérer :
 
 En résumé, https://yourdomain.com/generate-jwt est un espace réservé dans l'exemple, et vous devez le remplacer par l'URL réelle de votre service de génération de JWT pour Salesforce dans votre implémentation.
 
-**créer la fonction azure qui peut créer un token jwt avec n'importe quel language**
+**prompt: créer la fonction azure qui peut créer un token jwt avec n'importe quel language**
 
 Pour créer une fonction Azure qui génère un token JWT pour Salesforce, vous pouvez utiliser différents langages de programmation. Voici un exemple de mise en œuvre en utilisant C# avec .NET, qui est largement utilisé pour les fonctions Azure :
 - Créez une nouvelle fonction Azure dans le portail Azure ou via Visual Studio.
