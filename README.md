@@ -3,6 +3,7 @@
 **prompt: comment apim configure le jwt spécifique à salesforce ?**
 
 Pour configurer Azure API Management (APIM) afin de générer et utiliser un JWT spécifique pour accéder aux API Apex REST de Salesforce, vous devez suivre plusieurs étapes clés. 
+
 Voici un guide détaillé basé sur les informations disponibles et les meilleures pratiques.
 
 * **Étape 1 : Créer une Application Connectée dans Salesforce**
