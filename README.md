@@ -36,7 +36,7 @@ Voici un guide détaillé basé sur les informations disponibles et les meilleur
   - Dans le portail Azure, allez dans votre instance APIM.
   - Allez dans APIs et ajoutez une nouvelle API ou sélectionnez une API existante.
   - Ajouter une Politique pour Générer le JWT :
-  - 
+
 * **Ajoutez une politique pour générer le JWT spécifique à Salesforce :**
 
 ```xml
