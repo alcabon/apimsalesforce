@@ -48,7 +48,7 @@ Ajoutez une politique pour générer le JWT spécifique à Salesforce :
 </send-request>
 ```
 
-**Échanger le JWT contre un Token d'Accès Salesforce :**
+* **Échanger le JWT contre un Token d'Accès Salesforce :**
 Ajoutez une politique pour échanger le JWT contre un token d'accès Salesforce :
 
 ```xml
@@ -213,9 +213,11 @@ Utilisez le JWT généré pour obtenir un token d'accès Salesforce :
         return $"grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion={context.Variables["jwt-token"]}";
     }</set-body>
 </send-request>
+```
 
 Utilisez le token d'accès Salesforce pour les appels API :
-xml
+
+```xml
 <set-header name="Authorization" exists-action="override">
     <value>@("Bearer " + ((JObject)context.Variables["salesforce-token"]).Value<string>("access_token"))</value>
 </set-header>
