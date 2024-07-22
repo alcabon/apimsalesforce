@@ -5,31 +5,31 @@
 Pour configurer Azure API Management (APIM) afin de générer et utiliser un JWT spécifique pour accéder aux API Apex REST de Salesforce, vous devez suivre plusieurs étapes clés. 
 Voici un guide détaillé basé sur les informations disponibles et les meilleures pratiques.
 * **Étape 1 : Créer une Application Connectée dans Salesforce**
-Créer une Application Connectée :
-Connectez-vous à Salesforce en tant qu'administrateur.
-Allez dans Setup > App Manager > New Connected App.
-Remplissez les champs requis, y compris le nom de l'application et l'URL de rappel (par exemple, https://yourdomain.com/callback).
-Configurer les Paramètres OAuth :
-Dans la section API (Enable OAuth Settings), cochez Enable OAuth Settings.
-Ajoutez les OAuth Scopes nécessaires (par exemple, full, api).
-Cochez Use digital signatures et téléchargez le certificat public correspondant à la clé privée que vous utiliserez pour signer le JWT.
-Enregistrer l'Application :
-Enregistrez l'application et notez le Consumer Key et le Consumer Secret.
+# Créer une Application Connectée :
+# Connectez-vous à Salesforce en tant qu'administrateur.
+# Allez dans Setup > App Manager > New Connected App.
+# Remplissez les champs requis, y compris le nom de l'application et l'URL de rappel (par exemple, https://yourdomain.com/callback).
+# Configurer les Paramètres OAuth :
+## Dans la section API (Enable OAuth Settings), cochez Enable OAuth Settings.
+## Ajoutez les OAuth Scopes nécessaires (par exemple, full, api).
+## Cochez Use digital signatures et téléchargez le certificat public correspondant à la clé privée que vous utiliserez pour signer le JWT.
+## Enregistrer l'Application :
+## Enregistrez l'application et notez le Consumer Key et le Consumer Secret.
 * **Étape 2 : Générer un JWT Signé pour Salesforce**
 **Créer le JWT :**
 Le JWT doit inclure les claims suivants :
-iss : L'ID client de votre application connectée Salesforce (Consumer Key).
-sub : Le nom d'utilisateur Salesforce ou l'ID de l'utilisateur.
-aud : L'URL de l'instance Salesforce (par exemple, https://login.salesforce.com).
-exp : Timestamp d'expiration (généralement 3 minutes après la création).
+# iss : L'ID client de votre application connectée Salesforce (Consumer Key).
+# sub : Le nom d'utilisateur Salesforce ou l'ID de l'utilisateur.
+# aud : L'URL de l'instance Salesforce (par exemple, https://login.salesforce.com).
+# exp : Timestamp d'expiration (généralement 3 minutes après la création).
 **Signer le JWT :**
 Utilisez une bibliothèque de cryptographie pour signer le JWT avec votre clé privée.
 * **Étape 3 : Configurer Azure API Management (APIM)**
-Configurer l'API dans APIM :
-Dans le portail Azure, allez dans votre instance APIM.
-Allez dans APIs et ajoutez une nouvelle API ou sélectionnez une API existante.
-Ajouter une Politique pour Générer le JWT :
-Ajoutez une politique pour générer le JWT spécifique à Salesforce :
+# Configurer l'API dans APIM :
+# Dans le portail Azure, allez dans votre instance APIM.
+# Allez dans APIs et ajoutez une nouvelle API ou sélectionnez une API existante.
+# Ajouter une Politique pour Générer le JWT :
+## Ajoutez une politique pour générer le JWT spécifique à Salesforce :
 
 ```xml
 <send-request mode="new" response-variable-name="jwt-token">
@@ -101,26 +101,28 @@ Ce diagramme montre comment les différents composants interagissent pour permet
 
 La ligne de code <set-url>https://yourdomain.com/generate-jwt</set-url> fait référence à une URL fictive utilisée à titre d'exemple dans la configuration d'une politique Azure API Management (APIM). Dans un scénario réel, cette URL devrait être remplacée par l'adresse d'un service réel capable de générer un JWT (JSON Web Token) spécifique pour Salesforce.
 Voici quelques points importants à considérer :
-Service personnalisé : "yourdomain.com" n'est pas un domaine réel pour ce service. Dans une implémentation pratique, vous devriez remplacer cela par l'URL d'un service que vous avez créé et déployé spécifiquement pour générer des JWT conformes aux exigences de Salesforce.
-Options d'implémentation : Ce service de génération de JWT pourrait être :
-Une fonction Azure
-Un service web personnalisé hébergé sur Azure App Service
-Un endpoint d'une API existante dans votre infrastructure
-Sécurité : Quelle que soit l'option choisie, ce service doit être sécurisé et accessible uniquement par votre instance APIM.
-Fonctionnalité : Le service à cette URL devrait être capable de :
-Recevoir les paramètres nécessaires (comme l'ID client, le nom d'utilisateur, etc.)
-Générer un JWT avec les claims requis par Salesforce
-Signer le JWT avec la clé privée correspondant au certificat public fourni à Salesforce
-Alternative : Si vous préférez ne pas créer un service externe, vous pourriez potentiellement implémenter cette logique directement dans une politique APIM plus complexe, en utilisant des expressions et des fonctions C# intégrées.
+# Service personnalisé : "yourdomain.com" n'est pas un domaine réel pour ce service. Dans une implémentation pratique, vous devriez remplacer cela par l'URL d'un service que vous avez créé et déployé spécifiquement pour générer des JWT conformes aux exigences de Salesforce.
+# Options d'implémentation : Ce service de génération de JWT pourrait être :
+## Une fonction Azure
+## Un service web personnalisé hébergé sur Azure App Service
+## Un endpoint d'une API existante dans votre infrastructure
+# Sécurité : Quelle que soit l'option choisie, ce service doit être sécurisé et accessible uniquement par votre instance APIM.
+# Fonctionnalité : Le service à cette URL devrait être capable de :
+## Recevoir les paramètres nécessaires (comme l'ID client, le nom d'utilisateur, etc.)
+## Générer un JWT avec les claims requis par Salesforce
+## Signer le JWT avec la clé privée correspondant au certificat public fourni à Salesforce
+# Alternative : Si vous préférez ne pas créer un service externe, vous pourriez potentiellement implémenter cette logique directement dans une politique APIM plus complexe, en utilisant des expressions et des fonctions C# intégrées.
 En résumé, https://yourdomain.com/generate-jwt est un espace réservé dans l'exemple, et vous devez le remplacer par l'URL réelle de votre service de génération de JWT pour Salesforce dans votre implémentation.
-créer la fonction azure qui peut créer un token jwt avec n'importe quel language
+
+**créer la fonction azure qui peut créer un token jwt avec n'importe quel language**
 
 Pour créer une fonction Azure qui génère un token JWT pour Salesforce, vous pouvez utiliser différents langages de programmation. Voici un exemple de mise en œuvre en utilisant C# avec .NET, qui est largement utilisé pour les fonctions Azure :
-Créez une nouvelle fonction Azure dans le portail Azure ou via Visual Studio.
-Choisissez le modèle de déclencheur HTTP.
-Installez les packages NuGet suivants :
-System.IdentityModel.Tokens.Jwt
-Microsoft.IdentityModel.Tokens
+# Créez une nouvelle fonction Azure dans le portail Azure ou via Visual Studio.
+# Choisissez le modèle de déclencheur HTTP.
+# Installez les packages NuGet suivants :
+# System.IdentityModel.Tokens.Jwt
+# Microsoft.IdentityModel.Tokens
+
 Voici un exemple de code pour la fonction :
 
 ```csharp
