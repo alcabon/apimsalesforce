@@ -278,3 +278,16 @@ Explications :
 - Le client_id est déjà encodé dans le JWT.
 - La signature du JWT avec la clé privée prouve l'authenticité de la demande, rendant le client_secret redondant.
 - En utilisant cette méthode, vous réduisez la quantité d'informations sensibles transmises lors de chaque échange de token, ce qui améliore la sécurité globale de votre intégration avec Salesforce.
+
+
+
+**L'URL de callback** correspond à l'application appelante dans le contexte de l'authentification OAuth avec Salesforce. Voici les points clés à retenir :
+  - L'URL de callback est un point de terminaison dans votre application appelante (celle qui demande l'accès à Salesforce) .
+  - Salesforce utilise cette URL pour rediriger l'utilisateur après l'autorisation OAuth .
+  - Elle est également appelée "URL de rappel" ou "endpoint" que Salesforce utilise pour communiquer avec votre application pendant le processus OAuth .
+  - Dans le flux OAuth, après que l'utilisateur autorise l'accès, Salesforce redirige vers cette URL de callback avec le code d'autorisation ou les jetons nécessaires .
+    Par exemple, si votre application s'appelle "My Customer Order Status", l'URL de callback pourrait ressembler à :
+    https://www.mycustomerorderstatus.com/oauth2/callback 
+  - Il est important de noter que cette URL doit être configurée à l'avance dans les paramètres de votre application connectée dans Salesforce .
+  - Pour les applications web, mobiles ou de bureau, l'URL de callback doit être un endpoint que votre application peut gérer pour recevoir et traiter la réponse OAuth de Salesforce .
+  - En résumé, l'URL de callback fait partie de votre application appelante et non de Salesforce (l'application appelée). C'est l'endroit où votre application attend de recevoir les informations d'authentification après que l'utilisateur a autorisé l'accès via Salesforce.
