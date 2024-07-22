@@ -4,7 +4,9 @@
 
 Pour configurer Azure API Management (APIM) afin de générer et utiliser un JWT spécifique pour accéder aux API Apex REST de Salesforce, vous devez suivre plusieurs étapes clés. 
 Voici un guide détaillé basé sur les informations disponibles et les meilleures pratiques.
+
 * **Étape 1 : Créer une Application Connectée dans Salesforce**
+
 - Créer une Application Connectée :
 - Connectez-vous à Salesforce en tant qu'administrateur.
 - Allez dans Setup > App Manager > New Connected App.
@@ -15,16 +17,20 @@ Voici un guide détaillé basé sur les informations disponibles et les meilleur
   - Cochez Use digital signatures et téléchargez le certificat public correspondant à la clé privée que vous utiliserez pour signer le JWT.
   - Enregistrer l'Application :
   - Enregistrez l'application et notez le Consumer Key et le Consumer Secret.
+
 * **Étape 2 : Générer un JWT Signé pour Salesforce**
-  **Créer le JWT :**
-Le JWT doit inclure les claims suivants :
-  - iss : L'ID client de votre application connectée Salesforce (Consumer Key).
-  - sub : Le nom d'utilisateur Salesforce ou l'ID de l'utilisateur.
-  - aud : L'URL de l'instance Salesforce (par exemple, https://login.salesforce.com).
-  - exp : Timestamp d'expiration (généralement 3 minutes après la création).
-**Signer le JWT :**
-Utilisez une bibliothèque de cryptographie pour signer le JWT avec votre clé privée.
+
+    * **Créer le JWT :**
+      Le JWT doit inclure les claims suivants :
+      - iss : L'ID client de votre application connectée Salesforce (Consumer Key).
+      - sub : Le nom d'utilisateur Salesforce ou l'ID de l'utilisateur.
+      - aud : L'URL de l'instance Salesforce (par exemple, https://login.salesforce.com).
+      - exp : Timestamp d'expiration (généralement 3 minutes après la création).
+    * **Signer le JWT :**
+    Utilisez une bibliothèque de cryptographie pour signer le JWT avec votre clé privée.
+
 * **Étape 3 : Configurer Azure API Management (APIM)**
+  
   - Configurer l'API dans APIM :
   - Dans le portail Azure, allez dans votre instance APIM.
   - Allez dans APIs et ajoutez une nouvelle API ou sélectionnez une API existante.
@@ -98,17 +104,18 @@ sequenceDiagram
 
 Ce diagramme montre comment les différents composants interagissent pour permettre l'accès sécurisé à une API Apex REST de Salesforce via Azure API Management en utilisant un jeton JWT signé avec une clé privée connue de Salesforce. Les étapes incluent la génération et l'échange du JWT, ainsi que l'utilisation du token d'accès pour les appels API.
 
-<set-url>https://yourdomain.com/generate-jwt</set-url> quel est ce domaine ?
+**prompt: <set-url>https://yourdomain.com/generate-jwt</set-url> quel est ce domaine ?**
 
 La ligne de code <set-url>https://yourdomain.com/generate-jwt</set-url> fait référence à une URL fictive utilisée à titre d'exemple dans la configuration d'une politique Azure API Management (APIM). Dans un scénario réel, cette URL devrait être remplacée par l'adresse d'un service réel capable de générer un JWT (JSON Web Token) spécifique pour Salesforce.
+
 Voici quelques points importants à considérer :
 - Service personnalisé : "yourdomain.com" n'est pas un domaine réel pour ce service. Dans une implémentation pratique, vous devriez remplacer cela par l'URL d'un service que vous avez créé et déployé spécifiquement pour générer des JWT conformes aux exigences de Salesforce.
 - Options d'implémentation : Ce service de génération de JWT pourrait être :
   - Une fonction Azure
   - Un service web personnalisé hébergé sur Azure App Service
   - Un endpoint d'une API existante dans votre infrastructure
-  - Sécurité : Quelle que soit l'option choisie, ce service doit être sécurisé et accessible uniquement par votre instance APIM.
-  - Fonctionnalité : Le service à cette URL devrait être capable de :
+- Sécurité : Quelle que soit l'option choisie, ce service doit être sécurisé et accessible uniquement par votre instance APIM.
+- Fonctionnalité : Le service à cette URL devrait être capable de :
   - Recevoir les paramètres nécessaires (comme l'ID client, le nom d'utilisateur, etc.)
   - Générer un JWT avec les claims requis par Salesforce
   - Signer le JWT avec la clé privée correspondant au certificat public fourni à Salesforce
@@ -182,10 +189,12 @@ public static class SalesforceJwtGenerator
 }
 ```
 
-Configurez les variables d'environnement de la fonction :
-Ajoutez une variable PrivateKeyPath pointant vers le fichier .pfx contenant votre clé privée.
-Déployez la fonction sur Azure.
-Pour utiliser cette fonction avec Azure API Management :
+**Configurez les variables d'environnement de la fonction :**
+- Ajoutez une variable PrivateKeyPath pointant vers le fichier .pfx contenant votre clé privée.
+- Déployez la fonction sur Azure.
+
+**Pour utiliser cette fonction avec Azure API Management :**
+
 Dans APIM, ajoutez une politique pour appeler cette fonction Azure :
 
 ```xml
@@ -219,7 +228,7 @@ Utilisez le JWT généré pour obtenir un token d'accès Salesforce :
 </send-request>
 ```
 
-Utilisez le token d'accès Salesforce pour les appels API :
+**Utilisez le token d'accès Salesforce pour les appels API :**
 
 ```xml
 <set-header name="Authorization" exists-action="override">
